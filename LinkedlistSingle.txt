@@ -1,0 +1,53 @@
+<?php
+// Your code here!
+class Node {
+    public $value;
+    public $next;
+}
+
+class LinkedList {
+    public $head = null;
+    public function traverseLinkedList($head){
+       if( $head === null ) {
+            print("Empty Linked List");
+        } else {
+            while($head !== null) {
+                print($head->value);
+                $head = $head->next;    
+            }
+            
+        }
+        
+    }
+}
+class ListOperations{
+    public function addNewNode($new_node,$list){
+            
+        if($list->head  === null) {
+            $list->head = $new_node;
+        } else {
+            $new_node->next = $list->head->next;
+            $list->head = $new_node;
+        }
+    }
+}
+    
+$single_linked_list = new LinkedList();
+$single_linked_list->head = null;
+$first_node = new Node();
+$first_node->value = 10;
+$first_node->next = null;
+$single_linked_list->head = $first_node;
+$second_node = new Node();
+$second_node->value = 20;
+$second_node->next = null;
+$first_node->next = $second_node;
+$third_node = new Node();
+$third_node->value = 5;
+$third_node->next = null;
+$list_operations = new ListOperations(); 
+$list_operations->addNewNode( $third_node , $single_linked_list);
+$single_linked_list->traverseLinkedList($single_linked_list->head);
+
+
+?>
