@@ -1,0 +1,46 @@
+<?php
+// Your code here!
+class CircularQueue{
+    public $front = null;
+    public $rear = null;
+    
+    public function enqueue($element) {
+        $new_node = new Node();
+        $new_node->value = $element;
+        if($this->front === null && $this->rear === null) {
+            $this->front = $this->rear = $new_node;
+            $new_node->next = $new_node;
+        }  else {
+            $this->rear->next = $new_node;
+            $this->rear = $new_node;
+            $new_node->next = $this->front;
+        } 
+    } 
+    
+    
+    public function display() {
+        
+        if($this->front === null && $this->rear === null) {
+           print ("Queue is empty"); 
+        } else {
+            $temp = $this->front;
+            while($temp->next != $this->front ) {
+                print($temp->value);
+                $temp = $temp->next;
+            }
+            print($temp->value);
+        }
+    }
+}
+class Node {
+    public $next;
+    public $value;
+} 
+
+$circular_queue = new CircularQueue();
+$circular_queue->enqueue(10);
+$circular_queue->enqueue(20);
+$circular_queue->enqueue(30);
+$circular_queue->enqueue(40);
+$circular_queue->display();
+?>
