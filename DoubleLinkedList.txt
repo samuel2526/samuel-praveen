@@ -1,0 +1,200 @@
+<?php
+// Your code here!
+class Node {
+        public $value;
+        public $next;
+        public $prev;
+    }
+    
+    class DoubleLinkedList {
+        public $head = null;
+        public $tail = null;
+    }
+    
+    class ListOperation {
+        public function addNewNodeAtBeginning($list,$new_node){
+            if($list->head == null) {
+                $list->head = $new_node; 
+            } else {
+                $temp = $list->head;
+                $new_node->prev = $temp;
+                $temp->next = $new_node;
+                // $temp = $list->head;
+                // $temp->prev = $new_node;
+                // $new_node->next = $temp;
+                
+            }
+            //return $list;
+        }
+        
+        public function addNewNodeAtEnd($list,$new_node){
+            
+            if($list->head === null) {
+                $list->head = $new_node; 
+            } else {
+                $temp = $list->head;
+                while($temp->next !== null ) {
+                    $temp = $temp->next;   
+                }
+                $new_node->prev = $temp->next;
+                $temp->next = $new_node;
+                
+           }
+            //return $list;
+        }
+        public function addNewNodeAtGivenPosition($list,$new_node,$position){
+            
+            $next_node= null;
+            $i=1;
+            if($list->head == null) {
+                $list->head = $new_node; 
+            } else {
+                $temp = $list->head;
+                while( $i < $position ) {
+                    $temp = $temp->next;
+                    $i++;
+                }
+                $new_node->next = $temp->next; 
+                $new_node->prev = $temp->next->prev;
+                $temp->next->prev = $new_node;
+                $temp->next = $new_node;
+            }
+            //return $list;
+        }
+        public function traverseList($list) {
+            if($list->head == null) {
+                print("The list is empty"); 
+            } else {
+               $temp = $list->head;
+               print("The elements in the list are");
+               while($temp != null) {
+                   print($temp->value);
+                   $temp = $temp->next;
+               } 
+               
+            }
+        }
+        
+        public function deleteNodeFromBeginning($list) {
+            if($list->head == null) {
+                print("The list is empty"); 
+            } else{
+               $temp = $list->head;
+               $list->head = $temp->next;
+               $temp = null;
+            }
+            print("The list after deleting");
+            $this->traverseList($list);
+    
+        }
+        
+        public function deleteNodeFromEnd($list) {
+            if($list->head == null) {
+                print("The list is empty"); 
+            } else{
+               $temp = $list->head;
+               $previous_node = null;
+               while($temp->next != null) {
+                  $previous_node = $temp;
+                  $temp = $temp->next; 
+               }
+               $previous_node->next = null;
+               $temp = null;
+            }
+            print("The list after deleting");
+            $this->traverseList($list);
+    
+        }
+        
+        public function deleteNodeFromGivenPosition($list ,$position) {
+            if($list->head == null) {
+                print("The list is empty"); 
+            } else{
+               $i = 1;
+               $temp = $list->head;
+               $previous_node = null;
+               while($i < $position) {
+                  $i++;
+                  $previous_node = $temp;
+                  $temp = $temp->next; 
+               }
+               $temp->prev->next = $temp->next;
+               $temp->next->prev = $temp->prev;
+               $temp = null;
+            }
+            print("The list after deleting");
+            $this->traverseList($list);
+    
+        }
+        
+        public function getCountOfNodes($list) {
+            
+            $count = 0;
+            if($list->head === null) {
+                print("The given list is empty");    
+            } else {
+                $temp = $list->head;
+                while($temp !== null) {
+                    $count++;
+                    $temp = $temp->next;
+                }
+                print("The number of elements in the list is ".$count);
+            }    
+        }
+        
+        public function reverseList($list) {
+            
+            if($list->head === null) {
+                print("The list is empty");
+            } else {
+                $current_node = $list->head;
+                $next_node = $list->head;
+                $previous_node = null;
+                while($current_node !== null) {
+                    $next_node = $current_node->next;
+                    $current_node->next = $current_node->prev;
+                    $current_node->prev = $next_node;
+                    $current_node = $next_node;
+                }
+                $list->head = $previous_node;
+                
+            $this->traverseList($list);
+           }
+         
+       }
+    }
+    $list = new DoubleLinkedList();
+    $first_node = new Node();
+    $first_node->value = 10;
+    $first_node->next = null;
+    $first_node->prev = null;
+    $second_node = new Node();
+    $second_node->value = 20;
+    $second_node->next = null;
+    $second_node->prev = null;
+    $third_node = new Node();
+    $third_node->value = 30;
+    $third_node->next = null;
+    $third_node->prev = null;
+    $fourth_node = new Node();
+    $fourth_node->value = 40;
+    $fourth_node->next = null;
+    $fourth_node->prev = null;
+    
+    $list_operation = new  ListOperation();
+    $list_operation->addNewNodeAtBeginning($list ,$first_node);
+    $list_operation->addNewNodeAtBeginning($list ,$second_node);
+    //$list_operation->addNewNodeAtBeginning($list ,$third_node);
+    
+    // $list_operation->addNewNodeAtBeginning($list ,$second_node);
+     $list_operation->addNewNodeAtEnd($list ,$third_node);
+    $list_operation->addNewNodeAtGivenPosition($list ,$fourth_node,2);
+    $list_operation->traverseList($list);
+    // $list_operation->getCountOfNodes($list);
+    //$list_operation->deleteNodeFromBeginning($list);
+    //$list_operation->deleteNodeFromEnd($list);
+    //$list_operation->deleteNodeFromGivenPosition($list ,2);
+    $list_operation->reverseList($list);
+    
+?>
+
