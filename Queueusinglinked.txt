@@ -1,0 +1,63 @@
+<?php
+// Your code here!
+class Node {
+    public $value;
+    public $net;
+}
+
+class Queue {
+    public $front = null;
+    public $rear = null;
+    
+    public function enqueue($element) {
+        $new_node = new Node();
+        $new_node->value = $element;
+        $new_node->next = null;
+        if($this->front == null && $this->rear == null ) {
+            $this->front = $this->rear = $new_node;
+        } else {
+            $this->rear->next = $new_node;
+            $this->rear = $new_node;
+        } 
+    }
+    
+    public function traverseQueue() {
+        
+        if($this->front == null && $this->rear == null) {
+            print("The list is empty");
+        } else {
+            $temp = $this->front;
+            while($temp != null) {
+              print ($temp->value);
+              $temp = $temp->next; 
+            }
+        }    
+    }
+    
+    public function dequeue() {
+        if($this->front == null && $this->rear == null) {
+            print("Queue is empty");
+        } else {
+            $temp = $this->front;
+            $temp = null;
+            $this->front = $this->front->next;
+        }   
+    }
+    
+    public function peek() {
+        if($this->front == null && $this->rear == null) {
+            print("Queue is empty");
+        } else {
+            print($this->front->value);
+        }    
+         
+    }
+}
+
+$queue = new Queue();
+$queue->enqueue(10);
+$queue->enqueue(20);
+$queue->dequeue();
+$queue->traverseQueue();
+$queue->peek();
+?>
