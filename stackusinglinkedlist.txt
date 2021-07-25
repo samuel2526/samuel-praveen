@@ -1,0 +1,64 @@
+<?php
+class Node {
+
+    public $value; 
+    public $next;
+}
+
+class Stack {
+    public $top;
+}
+class StackOperation {
+
+    public function pushNode($stack,$element){
+        
+        $new_node = new Node();
+        $new_node->value = $element;
+        $new_node->next = $stack->top;
+        $stack->top = $new_node;
+    }
+    
+    public function displayStack($stack) {
+        $temp = $stack->top;
+        while($temp !== null) {
+            print($temp->value);
+            $temp = $temp->next;
+        }
+    }
+    
+    public function pop($stack){
+        
+        $temp = $stack->top;
+        if($temp === null) {
+            print "Underflow";
+        } else {
+            $stack->top = $stack->top->next;
+            $temp = null;
+            $this->displayStack($stack);    
+        }
+    }
+    
+    public function peek($stack) {
+        $temp = $stack->top;
+        if($temp === null) {
+            print "Underflow";
+        } else {
+        
+            print($temp->value);    
+        }    
+        
+    }
+        
+}
+$stack = new Stack;
+$stack_operations = new StackOperation();
+$stack_operations->pushNode($stack , 10);
+$stack_operations->pushNode($stack , 20);
+$stack_operations->pushNode($stack , 30);
+$stack_operations->displayStack($stack);
+$stack_operations->pop($stack);
+$stack_operations->peek($stack);
+
+
+
+?>
